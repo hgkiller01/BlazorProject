@@ -1,43 +1,18 @@
 ﻿@page "/WeatherPage"
 @using DataLibrary.Model;
-<h3>WeatherPage</h3>
-@if (AllData != null)
+
+@if (AllData != null && Items != null)
 {
+    <Select Color="Color.Primary" Items="@Items" @bind-Value="@SWeatherType"></Select>
     <Table TItem="Location" IsStriped="true" IsBordered="true" Items="AllData">
         <TableColumns>
             <TableColumn Text="縣市" @bind-Field="@context.locationName" />
         </TableColumns>
         <DetailRowTemplate>
-            <Table TItem="Weatherelement" Context="Weathers" Items="context.weatherElement">
-                <TableColumns>
-                    @if(Weathers.elementName == "Wx")
-                    {
-                        <TableColumn TType="Weatherelement"  Text="天氣概況">
-                            <Template Context="detail">
-                                <label>天氣狀態</label>
-                            </Template>
-                        </TableColumn>
-                    }
-                </TableColumns>
-                <DetailRowTemplate>
-                    @if (Weathers.elementName == "Wx")
-                    {
-                        <Table TItem="Time" Context="Times" Items="Weathers.time">
-                            <TableColumns>
-                                <TableColumn TType="Time" Text="時間">
-                                    <Template Context="detail">
-                                        @(detail.Value.startTime + " ~ " + detail.Value.endTime)
-                                    </Template>
-                                    @*<TableColumn TType="Time" Text="">
-
-                                    </TableColumn>*@
-                                </TableColumn>
-                            </TableColumns>
-                        </Table>
-                    }
-
-                </DetailRowTemplate>
-            </Table>
+            @{
+                var datasource = GetWeatherElement(context.weatherElement, SWeatherType);
+            }
+            <WeatherPartView Times="@datasource.time"></WeatherPartView>
         </DetailRowTemplate>
     </Table>
 }

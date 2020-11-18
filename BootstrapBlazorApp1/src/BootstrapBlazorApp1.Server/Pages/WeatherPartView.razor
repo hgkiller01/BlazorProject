@@ -1,0 +1,14 @@
+﻿
+<Table TItem="Time" Items="Times" Context="ITimes">
+    <TableColumns>
+        <TableColumn @bind-Field="ITimes">
+            <Template Context="v">
+                <label>@(v.Value.startTime.ToString() + "~" + v.Value.endTime.ToString())</label>
+            </Template>
+        </TableColumn>
+    </TableColumns>
+</Table>
+@code {
+    [Parameter]
+    public List<Time> Times { get; set; }
+}
