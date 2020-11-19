@@ -1,18 +1,35 @@
 ﻿@page "/WeatherPage"
 @using DataLibrary.Model;
 
+<div class="row">
+    <div class="col-md-3 col-md-5">
+        <button class="btn btn-danger">TEST</button>
+    </div>
+</div>
 @if (AllData != null && Items != null)
 {
-    <Select Color="Color.Primary" Items="@Items" @bind-Value="@SWeatherType"></Select>
+    <Select Color="Color.Primary" Items="@Items" OnSelectedItemChanged="@ChangeDropDown" @bind-Value="@SWeatherType"></Select>
     <Table TItem="Location" IsStriped="true" IsBordered="true" Items="AllData">
         <TableColumns>
             <TableColumn Text="縣市" @bind-Field="@context.locationName" />
         </TableColumns>
         <DetailRowTemplate>
             @{
-                var datasource = GetWeatherElement(context.weatherElement, SWeatherType);
+                var datasouce = GetWeatherElement(context.weatherElement, SWeatherType);
             }
-            <WeatherPartView Times="@datasource.time"></WeatherPartView>
+            <Table TItem="Time" Items="datasouce.time" Context="ITimes">
+                <TableColumns>
+                    <TableColumn Text="開始" @bind-Field="ITimes.startTime">
+                    </TableColumn>
+                    <TableColumn Text="結束" @bind-Field="ITimes.endTime">
+                    </TableColumn>
+                    <TableColumn TType="Parameter" Text="@Status" @bind-Field="ITimes.parameter">
+                        <Template Context="v">
+                            <label>@v.Value.parameterName @v.Value.parameterUnit</label>
+                        </Template>
+                    </TableColumn>
+                </TableColumns>
+            </Table>
         </DetailRowTemplate>
     </Table>
 }
