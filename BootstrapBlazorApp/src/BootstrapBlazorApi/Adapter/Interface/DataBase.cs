@@ -10,9 +10,8 @@ namespace BootstrapBlazorApi.Adapter.Interface
 {
     public class DataBase
     {
-        private IConfiguration _config;
-        private string ConnStr;
-        private SqlConnection conn;
+        public string ConnStr;
+        public SqlConnection conn;
         public DataBase()
         {
             var builder = new ConfigurationBuilder()

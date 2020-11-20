@@ -1,0 +1,16 @@
+﻿@page "/DessertPage"
+@if(desserts != null)
+{
+    <Table TItem="Dessert" IsPagination="true" PageItemsSource="@PageSize" OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="context.DessertName" />
+            <TableColumn @bind-Field="context.DessertPrice" />
+            <TableColumn @bind-Field="context.DessertKind" />
+        </TableColumns>
+    </Table>
+}
+
+
+@code {
+
+}

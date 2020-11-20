@@ -8,6 +8,7 @@ namespace BootstrapBlazorApi.Adapter.Interface
 {
     public interface IDessertAdapter
     {
-        IEnumerable<Dessert> GetList();
+        IEnumerable<Dessert> GetList(int pageIndex, int pageSize);
+        int GetTotalCount();
     }
 }
